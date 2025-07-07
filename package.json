@@ -1,6 +1,6 @@
 {
  "name": "commit-builder",
- "version": "1.1.6",
+ "version": "1.2.0",
  "description": "Herramientas CLI para commits estandarizados",
  "bin": {
   "commit": "./scripts/commit.js",
@@ -12,12 +12,14 @@
   "commit": "node scripts/commit.js",
   "commit-push": "node scripts/commitPush.js",
   "commit-push-tag": "node scripts/commitPushTag.js",
+  "commit-push-mr": "node scripts/commitPushMr.js",
   "new-tag": "node scripts/tag.js"
  },
  "keywords": [],
  "author": "Tu Nombre",
  "license": "MIT",
  "dependencies": {
-  "inquirer": "8.2.5"
+  "inquirer": "8.2.5",
+  "node-fetch": "^2.6.7"
  }
 }
