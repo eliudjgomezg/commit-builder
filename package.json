@@ -6,6 +6,7 @@
   "commit": "./scripts/commit.js",
   "commit-push": "./scripts/commitPush.js",
   "commit-push-tag": "./scripts/commitPushTag.js",
+  "commit-push-mr": "./scripts/commitPushMr.js",
   "new-tag": "./scripts/tag.js"
  },
  "scripts": {
