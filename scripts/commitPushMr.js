@@ -1,4 +1,4 @@
-//!/usr/bin/env node
+#!/usr/bin/env node
 
 const inquirer = require("inquirer");
 const { execSync, execFileSync } = require("child_process");
