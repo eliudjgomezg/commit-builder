@@ -11,7 +11,7 @@ const { inquirerPrompt, commitBody } = require("./helpers");
 
     console.info("✅ Creando commit...")
     const answers = await inquirer.prompt(inquirerPrompt)
-    const commitMessage = commitBody(answers)
+    const commitMessage = commitBody(answers).command
     execSync(commitMessage, { stdio: "inherit" })
 
     console.info("🚀 Haciendo push...")
@@ -22,7 +22,7 @@ const { inquirerPrompt, commitBody } = require("./helpers");
     const tagName = `qa-${branch}/${hash}`
 
     console.info(`🏷️  Creando tag ${tagName}...`)
-    execSync(`git tag -f ${tagName} -m ${commitMessage}`)
+    execSync(`git tag -f ${tagName} -m ${commitBody(answers).header}`)
     execSync(`git push origin ${tagName}`, { stdio: "inherit" })
 
     console.info("🎉 ¡Todo listo!")

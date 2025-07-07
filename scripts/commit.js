@@ -11,7 +11,7 @@ const { inquirerPrompt, commitBody } = require("./helpers");
 
     console.info("✅ Creando commit...")
     const answers = await inquirer.prompt(inquirerPrompt)
-    const command = commitBody(answers)
+    const command = commitBody(answers).command
     execSync(command, { stdio: "inherit" })
 
     console.info("🎉 ¡Commit realizado con éxito!")

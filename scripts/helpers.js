@@ -44,9 +44,9 @@ const commitBody = (answers) => {
   const header = `${parsedType}(${module.toLowerCase()}): ${title.toLowerCase()}`
   const body = message.trim() ? message.toLowerCase() : null
 
-  return body
-    ? `git commit -m "${header}" -m "${body}"`
-    : `git commit -m "${header}"`
+  const command = body ? `git commit -m "${header}" -m "${body}"` : `git commit -m "${header}"`
+
+  return { command, header }
 }
 
 module.exports = {
