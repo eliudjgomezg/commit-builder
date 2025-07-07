@@ -19,10 +19,11 @@ const { inquirerPrompt, commitBody } = require("./helpers");
 
     const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim()
     const hash = execSync("git rev-parse --short HEAD").toString().trim()
-    const tagName = `qa-${branch}/${hash}`
+    const sanitizedBranch = branch.replace(/[^a-zA-Z0-9\-_.]/g, '-');
+    const tagName = `qa-${sanitizedBranch}/${hash}`
 
     console.info(`🏷️  Creando tag ${tagName}...`)
-    execSync(`git tag -f ${tagName} -m ${commitBody(answers).header}`)
+    execSync(`git tag -f ${tagName} -m '${commitBody(answers).header}'`, { stdio: "inherit" })
     execSync(`git push origin ${tagName}`, { stdio: "inherit" })
 
     console.info("🎉 ¡Todo listo!")
