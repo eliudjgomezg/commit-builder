@@ -1,6 +1,6 @@
 {
  "name": "commit-builder",
- "version": "1.2.2",
+ "version": "1.2.3",
  "description": "Herramientas CLI para commits estandarizados",
  "bin": {
   "commit": "./scripts/commit.js",
