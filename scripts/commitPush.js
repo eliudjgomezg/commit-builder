@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const inquirer = require("inquirer");
+const { execSync } = require("child_process");
+const { inquirerPrompt, commitBody } = require("./helpers");
+
+(async () => {
+  try {
+    console.info("➕ Añadiendo cambios...")
+    execSync("git add .", { stdio: "inherit" })
+
+    console.info("✅ Creando commit...")
+    const answers = await inquirer.prompt(inquirerPrompt)
+    const command = commitBody(answers)
+    execSync(command, { stdio: "inherit" })
+
+    console.info('🚀 Haciendo push...')
+    execSync('git push', { stdio: 'inherit' })
+
+    console.info("🎉 Push realizado con éxito!")
+  } catch (err) {
+    console.error("❌ Error durante el commit:", err.message)
+  }
+})()
