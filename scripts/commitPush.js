@@ -6,19 +6,21 @@ const { inquirerPrompt, commitBody } = require("./helpers");
 
 (async () => {
   try {
-    console.info("➕ Añadiendo cambios...")
-    execSync("git add .", { stdio: "inherit" })
+    console.info("➕ Añadiendo cambios...");
+    execSync("git add .", { stdio: "inherit" });
 
-    console.info("✅ Creando commit...")
-    const answers = await inquirer.prompt(inquirerPrompt)
-    const command = commitBody(answers).command
-    execSync(command, { stdio: "inherit" })
+    console.info("✅ Creando commit...");
+    const answers = await inquirer.prompt(inquirerPrompt);
+    const { command } = commitBody(answers);
+    execSync(command, { stdio: "inherit" });
 
-    console.info('🚀 Haciendo push...')
-    execSync('git push', { stdio: 'inherit' })
+    const branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
 
-    console.info("🎉 Push realizado con éxito!")
+    console.info("🚀 Haciendo push...");
+    execSync(`git push --set-upstream origin ${branch}`, { stdio: "inherit" });
+
+    console.info("🎉 Push realizado con éxito!");
   } catch (err) {
-    console.error("❌ Error durante el commit:", err.message)
+    console.error("❌ Error durante el commit:", err.message);
   }
-})()
+})();

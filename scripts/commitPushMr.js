@@ -66,14 +66,12 @@ async function createMrWithApi({ header, description, sourceBranch, targetBranch
 
   const encodedRepo = encodeURIComponent(repoPath);
 
-  // 1) Obtener project_id
   const projRes = await fetchFn(`https://gitlab.com/api/v4/projects/${encodedRepo}`, {
     headers: { "PRIVATE-TOKEN": token },
   });
   if (!projRes.ok) throw new Error(`Error al buscar proyecto: ${projRes.status} ${await projRes.text()}`);
   const project = await projRes.json();
 
-  // 2) Crear MR
   const mrRes = await fetchFn(`https://gitlab.com/api/v4/projects/${project.id}/merge_requests`, {
     method: "POST",
     headers: {
@@ -102,15 +100,14 @@ async function createMrWithApi({ header, description, sourceBranch, targetBranch
     const { command, header } = commitBody(answers);
     execSync(command, { stdio: "inherit" });
 
-    console.info("🚀 Haciendo push…");
-    execSync("git push", { stdio: "inherit" });
-
     const sourceBranch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
     const targetBranch = "main";
     const description = answers.message || "";
 
-    const repoPath = getGitlabRepoPath();
+    console.info("🚀 Haciendo push…");
+    execSync(`git push --set-upstream origin ${sourceBranch}`, { stdio: "inherit" });
 
+    const repoPath = getGitlabRepoPath();
     let mrUrl;
 
     if (commandExists("glab")) {
